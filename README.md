@@ -1,8 +1,62 @@
-# React + Vite
+# React Kanban App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Kanban app built with React and Firebase. This is the React version of an originally Vanilla JS-built Kanban app. Optionally styled with Bootstrap.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+
+- Node.js and npm
+- Firebase account
+
+## Installation
+
+1. **Clone the repository**
+
+    ```bash
+    git clone https://github.com/yourGithubName/react-kanban.git
+    ```
+
+2. **Install dependencies**
+
+    ```bash
+    cd react-kanban
+    npm install
+    ```
+
+3. **Configure Firebase**
+
+    - Create a new project in the Firebase Console.
+    - Add your Firebase configuration details to `src/firebaseConfig.js`.
+
+    ```javascript
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      // ...additional settings
+    };
+
+    export default firebaseConfig;
+    ```
+
+4. **(Optional) Bootstrap**
+
+    Bootstrap is already installed. If you don't wish to use it, you can remove it from the `src/index.js` file.
+
+## Usage
+
+**Development mode**
+
+```bash
+npm start
+
+**Production builde**
+
+```bash
+npm run build
+
+## Features
+
+Login
+Add, edit, and delete tasks
+Add, edit, and delete lists
+drag-and-drop support
