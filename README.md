@@ -48,12 +48,14 @@ A Kanban app built with React and Firebase. This is the React version of an orig
 
 ```bash
 npm start
+  ```
 
 **Production builde**
 
 ```bash
 npm run build
-
+  ```
+  
 ## Features
 
 Login
