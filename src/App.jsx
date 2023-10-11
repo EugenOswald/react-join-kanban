@@ -1,10 +1,12 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import './App.scss';
 import Interface from './Components/Interface';
 import LoginForm from './Components/LoginForm';
 import SingUpForm from './Components/SingUpForm';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	const [showLoginForm, setShowLoginForm] = useState(false); //Dient dazu zuprüfen ob man angemeldet ist oder nicht
@@ -22,19 +24,24 @@ function App() {
 
 	return (
 		<>
-			<h1>Join Kanban</h1>
 			{user ? (
 				<>
 					<Interface username={userData.username}></Interface>
 				</>
 			) : (
 				<>
-					<button className='toggleLogin' onClick={() => setShowLoginForm(!showLoginForm)}>
-						{showLoginForm ? 'Register' : ' Login'}
-						{/* Das ist ein ternary operator */}
-					</button>
-					{/* Mit der onClick erstellen wir eine Anonymefunktion mit der wird mithilfe von useState von showLoginForm den zustand von false auf true setzen */}
-					{!showLoginForm ? <SingUpForm onRegistration={handleRegistration} /> : <LoginForm onLoding={handelLogin} />}
+					<div className='login-form-card d-flex justify-content-center align-items-center flex-column flex-grow'>
+						<div className='container-toggle-login d-flex justify-content-center align-items-center flex-row'>
+							<p>Not a Join user?</p>
+							<Button variant='primary' className='toggleLogin' onClick={() => setShowLoginForm(!showLoginForm)}>
+								{showLoginForm ? 'Sing Up' : ' Login'}
+							</Button>
+						</div>
+						<Card style={{ width: '18rem' }}>
+							{/* Mit der onClick erstellen wir eine Anonymefunktion mit der wird mithilfe von useState von showLoginForm den zustand von false auf true setzen */}
+							{!showLoginForm ? <SingUpForm onRegistration={handleRegistration} /> : <LoginForm onLoding={handelLogin} />}
+						</Card>
+					</div>
 				</>
 			)}
 		</>

@@ -1,4 +1,4 @@
-# React Kanban App
+# React Kanban Firebase App
 
 A Kanban app built with vite-React and Firebase. This is the React version of an originally Vanilla JS-built Kanban app. Optionally styled with Bootstrap.
 
