@@ -13,34 +13,35 @@ A Kanban app built with vite-React and Firebase. This is the React version of an
 1. **Clone the repository**
 
     ```bash
-    git clone https://github.com/yourGithubName/react-kanban.git
+    git clone https://github.com/yourGithubName/react-join-kanban.git
     ```
 
 2. **Install dependencies**
 
     ```bash
-    cd react-kanban
+    cd react-join-kanban
     npm install
     ```
 
 3. **Configure Firebase**
 
     - Create a new project in the Firebase Console.
-    - Add your Firebase configuration details to `src/firebaseConfig.js`.
+    - Add your Firebase configuration details to `.env`.
 
     ```javascript
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      // ...additional settings
-    };
 
-    export default firebaseConfig;
+    VITE_REACT_APP_FIREBASE_API_KEY=...
+    VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=...
+    VITE_REACT_APP_FIREBASE_PROJECT_ID=...
+    VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=...
+    VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID=...
+    VITE_REACT_APP_FIREBASE_APP_ID=...
+
     ```
 
 4. **(Optional) Bootstrap**
 
-    Bootstrap is already installed. If you don't wish to use it, you can remove it from the `src/index.js` file.
+    Bootstrap is already installed. If you don't wish to use it, you can remove it from the `src/app.js` file.
 
 ## Usage
 
