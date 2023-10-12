@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-	const [showLoginForm, setShowLoginForm] = useState(false); //Dient dazu zuprüfen ob man angemeldet ist oder nicht
+	const [showLoginForm, setShowLoginForm] = useState(true); //Dient dazu zuprüfen ob man angemeldet ist oder nicht
 	const [user, setUser] = useState(null); // Hiermit wollen wollen wir die Infos eMail/ PW vom User von firebase abgreifen
 	const [userData, setUserData] = useState(null); // Hier griefen wir alle weiteren infos vom User ab
 

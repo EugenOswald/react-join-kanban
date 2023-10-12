@@ -38,12 +38,12 @@ const RegisterForm = ({ onRegistration }) => {
 			console.log('Regestrieung erfolgreich');
 			onRegistration();
 		} catch (error) {
-			console.log(error);
+			console.log('Fehler beim Anmelden:', error);
 		}
 	};
 
 	return (
-		<>
+		<Form onSubmit={handleSubmit}>
 			<Form.Group className='mb-3'>
 				<Form.Control placeholder='First Name' type='text' value={firstname} onChange={(e) => setFirstName(e.target.value)} />
 			</Form.Group>
@@ -68,7 +68,7 @@ const RegisterForm = ({ onRegistration }) => {
 			<Button variant='primary' type='submit'>
 				Sign up
 			</Button>
-		</>
+		</Form>
 	);
 };
 

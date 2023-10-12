@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const LoginForm = ({ onLoding }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [rememberMe, setRememberMe] = useState(false);
+
+	const handleRememberMeClick = () => {
+		const auth = getAuth();
+		if (rememberMe) {
+			setPersistence(auth, browserLocalPersistence);
+		} else {
+			setPersistence(auth, browserSessionPersistence);
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault(); /* mit e fangen wird das event ab und verhindern das neuladen */
@@ -27,19 +39,31 @@ const LoginForm = ({ onLoding }) => {
 		}
 	};
 
+
+	const anonymSubmit = getAuth();
+	signInAnonymously(auth)
+		.then(() => {
+			// Signed in..
+		})
+		.catch((error) => {
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			// ...
+		});
+
 	return (
-		<form onSubmit={handleSubmit}>
-			<label htmlFor='email'>
-				Email
-				<input type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-			</label>
-			{/* mit onChange prüfen wir änderungen im input. Das machen wir mit dem e für event und taget value  OHNE DAS KÖNNTEN WIR NICHT IM INPUT SCHREIBEN*/}
-			<label>
-				Password:
-				<input type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-			</label>
-			<button type='submit'>Login</button>
-		</form>
+		<Form onSubmit={handleSubmit}>
+			<Form.Group className='mb-3'>
+				<Form.Control placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+			</Form.Group>
+
+			<Form.Group className='mb-3'>
+				<Form.Control placeholder='Password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+			</Form.Group>
+			<div className='d-flex justify-content-evenly'>
+				<Button type='submit'>Login</Button> <Button type='button' onClick={anonymSubmit}>Gast</Button>
+			</div>
+		</Form>
 	);
 };
 
