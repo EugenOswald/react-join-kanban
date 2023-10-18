@@ -39,17 +39,15 @@ const LoginForm = ({ onLoding }) => {
 		}
 	};
 
-
-	const anonymSubmit = getAuth();
-	signInAnonymously(auth)
-		.then(() => {
-			// Signed in..
-		})
-		.catch((error) => {
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			// ...
-		});
+	const anonymSubmit = async () => {
+		try {
+			const auth = getAuth();
+			await signInAnonymously(auth);
+			console.log('Anonym eingeloggt');
+		} catch (error) {
+			console.log('Anonymer Login fehlgeschlagen:', error);
+		}
+	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -60,8 +58,19 @@ const LoginForm = ({ onLoding }) => {
 			<Form.Group className='mb-3'>
 				<Form.Control placeholder='Password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 			</Form.Group>
+			<Form.Check
+				className='mb-3'
+				label={<span>Remember me</span>}
+				feedbackType='invalid'
+				onChange={(e) => setRememberMe(e.target.checked)}
+			/>
 			<div className='d-flex justify-content-evenly'>
-				<Button type='submit'>Login</Button> <Button type='button' onClick={anonymSubmit}>Gast</Button>
+				<Button type='submit' disabled={!(email && password)}>
+					Login
+				</Button>{' '}
+				<Button type='button' onClick={anonymSubmit}>
+					Gast Log in
+				</Button>
 			</div>
 		</Form>
 	);
