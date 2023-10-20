@@ -1,0 +1,22 @@
+.btn.btn-primary {
+	background-color: $primary;
+	border: none;
+	:disabled {
+		background-color: $primaryDisabled;
+	}
+	:hover {
+		background-color: $secondary;
+	}
+}
+
+.arrow-left {
+	position: absolute;
+	width: 30px;
+	left: 10px;
+	top: 10px;
+	cursor: pointer;
+	transition: all 225ms ease-in-out;
+	:hover {
+		left: 6px;
+	}
+}

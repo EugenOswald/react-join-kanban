@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword} from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const LoginForm = ({ onLoding }) => {
+const LoginForm = ({ onLoading }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
+
+	const gastEmail = 'guest@example.com';
+	const gastPassword = 'guestPassword';
 
 	const handleRememberMeClick = () => {
 		const auth = getAuth();
@@ -29,7 +32,7 @@ const LoginForm = ({ onLoding }) => {
 		if (userDoc.exists()) {
 			/* diese if abfrage dient dazu ist zum Testen vorgesehen */
 			const userData = userDoc.data();
-			onLoding(userCredential.user, userData);
+			onLoading(userCredential.user, userData);
 		} else {
 			console.log('User not found');
 		}
@@ -42,8 +45,8 @@ const LoginForm = ({ onLoding }) => {
 	const anonymSubmit = async () => {
 		try {
 			const auth = getAuth();
-			await signInAnonymously(auth);
-			console.log('Anonym eingeloggt');
+			const userCredential = await signInWithEmailAndPassword(auth, gastEmail, gastPassword);
+			console.log('Eingelogt als:', userCredential.user);
 		} catch (error) {
 			console.log('Anonymer Login fehlgeschlagen:', error);
 		}
