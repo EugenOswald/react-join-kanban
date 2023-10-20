@@ -17,7 +17,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-const RegisterForm = ({ onRegistration }) => {
+const SignUpForm = ({ onRegistration }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmpassword, setConfirmPassword] = useState('');
@@ -104,4 +104,4 @@ const RegisterForm = ({ onRegistration }) => {
 	);
 };
 
-export default RegisterForm;
+export default SignUpForm;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.scss';
 import Interface from './Components/Interface';
 import LoginForm from './Components/LoginForm';
-import SingUpForm from './Components/SingUpForm';
+import SignUpForm from './Components/SignUpForm';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
