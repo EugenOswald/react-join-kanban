@@ -1,11 +1,11 @@
-import React, { useState } from 'react'; /* rafce -> shortkey für eine function Component erstellen */
+import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
 	authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -15,8 +15,17 @@ const firebaseConfig = {
 	appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
 };
 
+/**
+ * Initialisiert die Firebase-Anwendung mit der oben definierten Konfiguration.
+ */
 initializeApp(firebaseConfig);
 
+/**
+ * SignUpForm - Eine React Komponente zur Benutzerregistrierung.
+ *
+ * @param {Object} props - Props der Komponente.
+ * @param {Function} props.onRegistration - Callback, der nach erfolgreicher Registrierung aufgerufen wird.
+ */
 const SignUpForm = ({ onRegistration }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -27,6 +36,11 @@ const SignUpForm = ({ onRegistration }) => {
 	const [passwordAccepted, setPasswordAccepted] = useState(false);
 	const [passwordLenght, setPasswordLenght] = useState(false);
 
+	/**
+	 * handleSubmit - Behandelt das Absenden des Registrierungsformulars.
+	 *
+	 * @param {Event} e - Standard-Eventobjekt.
+	 */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmpassword && passwordLenght < 6) {
@@ -53,21 +67,21 @@ const SignUpForm = ({ onRegistration }) => {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} className='d-flex justify-content-center flex-column align-items-center p-4'>
+		<Form onSubmit={handleSubmit} className='d-flex justify-content-center flex-column align-items-center w-100'>
 			<h3 className='mb-3'>Sign up</h3>
-			<Form.Group className='mb-3'>
+			<Form.Group className='mb-3 w-100'>
 				<Form.Control placeholder='First Name' type='text' value={firstname} onChange={(e) => setFirstName(e.target.value)} />
 			</Form.Group>
-			<Form.Group className='mb-3'>
+			<Form.Group className='mb-3 w-100'>
 				<Form.Control placeholder='Last Name' type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} />
 			</Form.Group>
-			<Form.Group className='mb-3' controlId='email'>
+			<Form.Group className='mb-3 w-100' controlId='email'>
 				<Form.Control placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
 			</Form.Group>
-			<Form.Group className='mb-3'>
+			<Form.Group className='mb-3 w-100'>
 				<Form.Control placeholder='Password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 			</Form.Group>
-			<Form.Group className='mb-3'>
+			<Form.Group className='mb-5 w-100'>
 				<Form.Control
 					placeholder='Confirm Password'
 					type='password'

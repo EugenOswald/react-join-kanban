@@ -1,21 +1,25 @@
 .btn.btn-primary {
 	background-color: $primary;
 	border: none;
-	:disabled {
-		background-color: $primaryDisabled;
-	}
 	:hover {
 		background-color: $secondary;
 	}
 }
 
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
+	background-color: $primaryDisabled !important;
+}
+
 .arrow-left {
 	position: absolute;
 	width: 30px;
-	left: 10px;
-	top: 10px;
+	left: 20px;
+	top: 20px;
 	cursor: pointer;
 	transition: all 225ms ease-in-out;
+
 	:hover {
 		left: 6px;
 	}

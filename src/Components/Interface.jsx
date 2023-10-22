@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Interface = ({ username }) => {
-	return <p>Welcome, {username}</p>;
+const Interface = ({ userData }) => {
+	return (
+		<p>
+			Welcome, {userData.Firstname} {userData.Lastname}
+		</p>
+	);
 };
 
 export default Interface;
