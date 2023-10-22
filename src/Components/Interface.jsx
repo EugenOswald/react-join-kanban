@@ -1,10 +1,12 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 const Interface = ({ userData }) => {
 	return (
-		<p>
-			Welcome, {userData.Firstname} {userData.Lastname}
-		</p>
+		<>
+			<Navbar userData={userData} />
+			
+		</>
 	);
 };
 

@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const Summery = () => {
-  return (
-    <div>Summery</div>
-  )
-}
+const Summery = ({ userData }) => {
+	return (
+		<p>
+			Welcome, {userData.Firstname} {userData.Lastname}
+		</p>
+	);
+};
 
-export default Summery
+export default Summery;
