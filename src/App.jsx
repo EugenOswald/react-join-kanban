@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import arrowLeftLine from './assets/icons/arrow-left-line.png';
 import Interface from './Components/Interface';
 import LoginForm from './Components/LoginForm';
 import SignUpForm from './Components/SignUpForm';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import './scss/main.scss';
+import './App.scss';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

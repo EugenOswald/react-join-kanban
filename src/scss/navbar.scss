@@ -1,0 +1,22 @@
+$primary: #2a3647;
+
+nav.Navbar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 232px;
+	height: 100vh;
+	background-color: $primary;
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		li {
+			position: relative;
+			margin-bottom: 23px;
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+}

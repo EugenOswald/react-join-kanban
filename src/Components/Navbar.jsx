@@ -1,20 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Summery from './Summery';
-import AddTask from './AddTask';
-import Board from './Board';
-import Contacts from './Contacts';
+import { BrowserRouter, Link } from 'react-router-dom';
 
-const Navbar = ({ userData }) => {
+import '../scss/navbar.scss';
+
+const Navbar = () => {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Summery userData={userData} />} />
-				<Route path='/addtask' element={<AddTask />} />
-				<Route path='/board' element={<Board />} />
-				<Route path='/contacts' element={<Contacts />} />
-				{/* <Route path='*' element={<NoPage />} /> */}
-			</Routes>
+			<nav className='Navbar d-flex'>
+				<ul>
+					<li>
+						<Link to='/'>Summery</Link>
+					</li>
+					<li>
+						<Link to='/addtask'>Add Task</Link>
+					</li>
+					<li>
+						<Link to='/board'>Board</Link>
+					</li>
+					<li>
+						<Link to='/contacts'>Contacts</Link>
+					</li>
+				</ul>
+			</nav>
 		</BrowserRouter>
 	);
 };
