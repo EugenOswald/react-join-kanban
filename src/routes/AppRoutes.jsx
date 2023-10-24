@@ -1,20 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Summery from '../Components/Summery';
+import { Routes, Route } from 'react-router-dom';
+import Summary from '../Components/Summary';
 import AddTask from '../Components/AddTask';
 import Board from '../Components/Board';
 import Contacts from '../Components/Contacts';
+import PrivacyPolicy from '../Components/PrivacyPolicy';
+import LegalNotice from '../Components/LegalNotice';
 
 const AppRoutes = ({ userData }) => {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Summery userData={userData} />} />
-				<Route path='/addtask' element={<AddTask />} />
-				<Route path='/board' element={<Board />} />
-				<Route path='/contacts' element={<Contacts />} />
-			</Routes>
-		</BrowserRouter>
+		<Routes>
+			<Route path='/' element={<Summary userData={userData} />} />
+			<Route path='/addtask' element={<AddTask userData={userData} />} />
+			<Route path='/board' element={<Board userData={userData} />} />
+			<Route path='/contacts' element={<Contacts userData={userData} />} />
+			<Route path='/privacypolicy' element={<PrivacyPolicy />} />
+			<Route path='/legalnotice' element={<LegalNotice />} />
+		</Routes>
 	);
 };
 

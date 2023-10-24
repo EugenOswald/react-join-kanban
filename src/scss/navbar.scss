@@ -2,11 +2,13 @@ $primary: #2a3647;
 
 nav.Navbar {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: space-around;
 	align-items: center;
 	width: 232px;
 	height: 100vh;
 	background-color: $primary;
+	z-index: 100;
 	ul {
 		list-style-type: none;
 		padding: 0;

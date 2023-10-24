@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const AddTask = ({ userData }) => {
+const Summary = ({ userData }) => {
 	return (
 		<div className='d-flex align-items-center justify-content-center w-100'>
 			<p>
@@ -10,4 +10,4 @@ const AddTask = ({ userData }) => {
 	);
 };
 
-export default AddTask
+export default Summary;

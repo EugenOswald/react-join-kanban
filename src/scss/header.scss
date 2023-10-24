@@ -1,2 +1,11 @@
-.header{
+.Header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 96px;
+	background-color: white;
+	z-index: 50;
+	position: absolute;
+	padding-left: 300px;
 }
