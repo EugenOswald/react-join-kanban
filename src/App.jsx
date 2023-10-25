@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Interface from './Components/Interface';
 import LoginForm from './Components/LoginForm';
 import SignUpForm from './Components/SignUpForm';
@@ -13,6 +14,18 @@ function App() {
 	const [user, setUser] = useState(null);
 	const [userData, setUserData] = useState(null);
 
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!user && showLoginForm) {
+			navigate('/login');
+		} else if (!user && !showLoginForm) {
+			navigate('/signup');
+		} else {
+			navigate('/');
+		}
+	}, [user, showLoginForm, navigate]);
+
 	const handleRegistration = () => {
 		setShowLoginForm(true);
 	};
@@ -20,7 +33,7 @@ function App() {
 	const handleLogin = (user, userData) => {
 		setUser(user);
 		setUserData(userData);
-		};
+	};
 
 	return (
 		<>
@@ -57,7 +70,15 @@ function App() {
 						) : (
 							''
 						)}
-						{!showLoginForm ? <SignUpForm onRegistration={handleRegistration} /> : <LoginForm onLoading={handleLogin} />}
+						{!showLoginForm ? (
+							<Routes>
+								<Route path='signup' element={<SignUpForm onRegistration={handleRegistration} />} />
+							</Routes>
+						) : (
+							<Routes>
+								<Route path='login' element={<LoginForm onLoading={handleLogin} />} />
+							</Routes>
+						)}
 					</Card>
 				</div>
 			)}
