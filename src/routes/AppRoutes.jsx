@@ -4,8 +4,10 @@ import Summary from '../Components/Summary';
 import AddTask from '../Components/AddTask';
 import Board from '../Components/Board';
 import Contacts from '../Components/Contacts';
+import Help from '../Components/Help';
 import PrivacyPolicy from '../Components/PrivacyPolicy';
 import LegalNotice from '../Components/LegalNotice';
+
 
 const AppRoutes = ({ userData }) => {
 	return (
@@ -16,6 +18,7 @@ const AppRoutes = ({ userData }) => {
 			<Route path='/contacts' element={<Contacts userData={userData} />} />
 			<Route path='/privacypolicy' element={<PrivacyPolicy />} />
 			<Route path='/legalnotice' element={<LegalNotice />} />
+			<Route path='/help' element={<Help />} /> 
 		</Routes>
 	);
 };

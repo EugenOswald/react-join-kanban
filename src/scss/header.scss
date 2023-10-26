@@ -1,6 +1,6 @@
 .Header {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	width: 100vw;
 	height: 96px;
@@ -8,4 +8,22 @@
 	z-index: 50;
 	position: absolute;
 	padding-left: 300px;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+	.dropdown button.dropdown-toggle {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 50px;
+		width: 50px;
+		border-radius: 100%;
+		color: #29abe2;
+		font-size: 20px;
+		border: 3px solid #2a3647;
+		background-color: white;
+
+		&::after {
+			content: none;
+		}
+	}
 }
