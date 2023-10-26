@@ -6,8 +6,8 @@ import helpIcon from '../assets/icons/help-icon.svg';
 import { Link } from 'react-router-dom';
 
 const letterName = (userData) => {
-	let firstNameLetter = userData.Firstname.charAt(0);
-	let lastNameLetter = userData.Lastname.charAt(0);
+	let firstNameLetter = userData.firstname.charAt(0);
+	let lastNameLetter = userData.lastname.charAt(0);
 	let letterName = firstNameLetter + lastNameLetter;
 	return letterName.toUpperCase();
 };

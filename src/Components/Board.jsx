@@ -4,7 +4,7 @@ const Board = ({ userData }) => {
 	return (
 		<div className='d-flex align-items-center justify-content-center w-100'>
 			<p>
-				Good morning, {userData.Firstname} {userData.Lastname}
+				Good morning, {userData.firstname} {userData.lastname}
 			</p>
 		</div>
 	);

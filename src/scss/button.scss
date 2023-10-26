@@ -24,3 +24,13 @@ fieldset:disabled .btn {
 		left: 6px;
 	}
 }
+
+.login-icons {
+	width: 30px;
+	cursor: pointer;
+	transition: all 225ms ease-in-out;
+
+	&:hover {
+		transform: translateY(1px);
+	}
+}

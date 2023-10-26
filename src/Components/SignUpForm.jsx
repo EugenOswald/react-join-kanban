@@ -1,24 +1,9 @@
 import React, { useState } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-
-const firebaseConfig = {
-	apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
-	authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
-};
-
-/**
- * Initialisiert die Firebase-Anwendung mit der oben definierten Konfiguration.
- */
-initializeApp(firebaseConfig);
+import { auth } from './Firebase';
 
 /**
  * SignUpForm - Eine React Komponente zur Benutzerregistrierung.
@@ -46,7 +31,6 @@ const SignUpForm = ({ onRegistration }) => {
 		if (password === confirmpassword && passwordLenght < 6) {
 			setPasswordAccepted(false);
 			setPasswordLenght(false);
-			const auth = getAuth();
 
 			try {
 				const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
