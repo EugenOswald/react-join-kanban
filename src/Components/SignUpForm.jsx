@@ -38,6 +38,7 @@ const SignUpForm = ({ onRegistration }) => {
 				setDoc(doc(db, 'users', userCredentials.user.uid), {
 					firstname,
 					lastname,
+					acceptedprivacypolicy,
 				}); /* Wir setzen den setDoc um den doc weil wir noch weite informationen mit geben möchten  */
 				console.log('Regestrieung erfolgreich');
 				onRegistration();

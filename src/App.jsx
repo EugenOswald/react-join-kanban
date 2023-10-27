@@ -1,17 +1,33 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './Components/Firebase';
 import Interface from './Components/Interface';
 import LoginForm from './Components/LoginForm';
 import SignUpForm from './Components/SignUpForm';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './App.scss';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	const [showLoginForm, setShowLoginForm] = useState(true);
+	/**
+	 * @type {[Object, Function]}
+	 * @description
+	 * - `user`: Das aktuelle Benutzerobjekt, das von Firebase Auth zurückgegeben wird.
+	 *   Es enthält Informationen wie die `uid`, `email` usw.
+	 * - `setUser`: Eine Funktion, die den Wert von `user` aktualisiert.
+	 */
 	const [user, setUser] = useState(null);
+
+	/**
+	 * @type {[Object, Function]}
+	 * @description
+	 * - `userData`: Zusätzliche benutzerspezifische Daten, die in der Firestore-Datenbank gespeichert sind.
+	 *   Hier sind `firstname` und `lastname` gespeichert.
+	 * - `setUserData`: Eine Funktion, die den Wert von `userData` aktualisiert.
+	 */
 	const [userData, setUserData] = useState(null);
 
 	const navigate = useNavigate();
@@ -21,31 +37,41 @@ function App() {
 			navigate('/login');
 		} else if (!user && !showLoginForm) {
 			navigate('/signup');
-		} else {
-			navigate('/');
 		}
 	}, [user, showLoginForm, navigate]);
+
+	const logout = async () => {
+		try {
+			await signOut(auth);
+			setUser(null);
+			setUserData(null);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 
 	const handleRegistration = () => {
 		setShowLoginForm(true);
 	};
 
-	const handleLogin = (user, userData) => {
+	const handleLogin = (user, userData) => {	
 		setUser(user);
 		setUserData(userData);
 	};
 
+
 	return (
 		<>
 			{user ? (
-				<Interface userData={userData}></Interface>
+				<Interface userData={userData} user={user} logout={logout} />
 			) : (
 				<div className='login-form-card d-flex justify-content-center align-items-center flex-column flex-grow'>
 					{showLoginForm ? (
 						<div className='container-toggle-login d-flex justify-content-center align-items-center flex-row'>
 							<p>Not a Join user?</p>
 							<Button variant='primary' className='toggleLogin' onClick={() => setShowLoginForm(!showLoginForm)}>
-								Sing Up
+								Sign Up
 							</Button>
 						</div>
 					) : (
