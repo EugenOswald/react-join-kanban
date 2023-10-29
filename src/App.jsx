@@ -58,6 +58,7 @@ function App() {
 	const handleLogin = (user, userData) => {	
 		setUser(user);
 		setUserData(userData);
+		navigate('/');
 	};
 
 

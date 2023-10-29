@@ -5,7 +5,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import helpIcon from '../assets/icons/help-icon.svg';
 import { Link } from 'react-router-dom';
 
-const Header = ({  userData, logout }) => {
+const Header = ({ userData, logout }) => {
 	const letterName = (userData) => {
 		let firstNameLetter = userData.firstname.charAt(0);
 		let lastNameLetter = userData.lastname.charAt(0);
@@ -21,6 +21,8 @@ const Header = ({  userData, logout }) => {
 					<img src={helpIcon} alt='' />
 				</Link>
 				<DropdownButton className='me-4' id='dropdown-basic-button' title={letterName(userData)}>
+					<Dropdown.Item onClick={logout}>Legal Notice</Dropdown.Item>
+					<Dropdown.Item onClick={logout}>Privacy Policy</Dropdown.Item>
 					<Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
 				</DropdownButton>
 			</div>

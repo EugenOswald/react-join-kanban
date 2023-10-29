@@ -1,5 +1,32 @@
+$secondary: #29abe2;
+
 .add-task {
-    width: 100%;
+	width: 100%;
 	margin-top: 96px;
-    padding: 100px;
+	margin-left: 230px;
+
+	.add-task-center {
+		width: 100%;
+		padding: 100px;
+	}
+
+	.form-label {
+		color: black;
+	}
+
+	.clear-form-button {
+		border: $secondary;
+		background-color: none;
+		transition: all 0ms ease-in-out;
+		&:hover {
+			background-color: #fff;
+		}
+	}
+
+	.submit-form-button {
+		transition: all 0ms ease-in-out;
+		&:hover {
+			background-color: $secondary;
+		}
+	}
 }
