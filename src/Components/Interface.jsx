@@ -4,12 +4,13 @@ import Header from './Header';
 import AppRoutes from '../routes/AppRoutes';
 
 
-
 const Interface = ({ user, userData, logout }) => {
-		return (
+	
+
+	return (
 		<>
 			<div className='d-flex'>
-				<Header userData={userData}  logout={logout} />
+				<Header userData={userData} logout={logout} />
 				<Navbar />
 				<AppRoutes userData={userData} user={user} />
 			</div>

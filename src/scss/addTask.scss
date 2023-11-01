@@ -5,9 +5,14 @@ $secondary: #29abe2;
 	margin-top: 96px;
 	margin-left: 230px;
 
-	.add-task-center {
+	.add-task-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		width: 100%;
 		padding: 100px;
+		.add-task-position {
+		}
 	}
 
 	.form-label {

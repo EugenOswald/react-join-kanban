@@ -1,0 +1,59 @@
+.summary {
+	width: 100%;
+	margin-top: 96px;
+	margin-left: 230px;
+
+	.summary-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		padding: 100px;
+		.summary-position {
+			.margin-bottom {
+				margin-bottom: 28px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				.card-layout {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 18px;
+					flex-shrink: 0;
+					border-radius: 30px;
+					background: #fff;
+					box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+				}
+
+				.card-todo {
+					width: 264px;
+					height: 168px;
+					padding: 38px 19px;
+					margin-right: 32px;
+
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+
+				.card-urgent {
+					width: 560px;
+					height: 168px;
+				}
+
+				.card-progress {
+					width: 168px;
+					height: 168px;
+					margin-right: 28px;
+
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+}
