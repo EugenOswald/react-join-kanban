@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc,setDoc } from 'firebase/firestore';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { auth, googleProvider } from './Firebase';
@@ -60,20 +60,33 @@ const LoginForm = ({ onLoading }) => {
 	 */
 	const signInWithGoogle = async (e) => {
 		e.preventDefault();
-		const userCredential = await signInWithPopup(auth, googleProvider);
-		const db = getFirestore();
-		const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
-		if (userDoc.exists()) {
-			const userData = userDoc.data();
-			onLoading(userCredential.user, userData);
-		} else {
-			console.log('User not found'); /* Fehler meldung erstellen */
-		}
 		try {
+			const userCredential = await signInWithPopup(auth, googleProvider);
+			const db = getFirestore();
+			const userDocRef = doc(db, 'users', userCredential.user.uid);
+			const userDoc = await getDoc(userDocRef);
+
+			if (userDoc.exists()) {
+				const userData = userDoc.data();
+				onLoading(userCredential.user, userData);
+			} else {
+				// Wenn der Benutzer nicht in Firestore gefunden wird, erstellen wir einen neuen Eintrag für ihn
+				const userData = {
+					firstname: userCredential.user.displayName.split(' ')[0],
+					lastname: userCredential.user.displayName.split(' ')[1],
+					// weitere Felder, falls nötig
+				};
+				await setDoc(userDocRef, userData);
+				console.log('Neuer Benutzer in Firestore erstellt', userData);
+				
+				onLoading(userCredential.user, userData); // Hier verwenden wir newUserData
+				
+			}
 		} catch (error) {
-			console.log(error);
+			console.log('Fehler beim Google-Login:', error);
 		}
 	};
+
 
 	/**
 	 * Anmeldedaten des Guasts validieren und absenden

@@ -21,8 +21,12 @@ const Header = ({ userData, logout }) => {
 					<img src={helpIcon} alt='' />
 				</Link>
 				<DropdownButton className='me-4' id='dropdown-basic-button' title={letterName(userData)}>
-					<Dropdown.Item onClick={logout}>Legal Notice</Dropdown.Item>
-					<Dropdown.Item onClick={logout}>Privacy Policy</Dropdown.Item>
+					<Dropdown.Item>
+						<Link to='/legalnotice'>Legal Notice</Link>
+					</Dropdown.Item>
+					<Dropdown.Item>
+						<Link to='/privacypolicy'>Privacy Policy</Link>
+					</Dropdown.Item>
 					<Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
 				</DropdownButton>
 			</div>

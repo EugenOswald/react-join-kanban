@@ -31,6 +31,7 @@ function App() {
 	const [userData, setUserData] = useState(null);
 
 	const navigate = useNavigate();
+	
 
 	useEffect(() => {
 		if (!user && showLoginForm) {
@@ -50,16 +51,16 @@ function App() {
 		}
 	};
 
-
 	const handleRegistration = () => {
 		setShowLoginForm(true);
 	};
 
-	const handleLogin = (user, userData) => {	
+	const handleLogin = (user, userData) => {
 		setUser(user);
 		setUserData(userData);
 		navigate('/');
 	};
+
 
 
 	return (

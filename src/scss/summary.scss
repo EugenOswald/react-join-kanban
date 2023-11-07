@@ -1,3 +1,5 @@
+$secondary: #29abe2;
+
 .summary {
 	width: 100%;
 	margin-top: 96px;
@@ -8,8 +10,28 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-		padding: 100px;
+		padding-top: 50px;
 		.summary-position {
+			.separating-line {
+				height: 59px;
+				border-right: solid 3px $secondary;
+			}
+			.summary-hello {
+				display: flex;
+				flex-direction: column;
+				color: #2a3647;
+				font-size: 47px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 120%;
+				.color-secondary {
+					color: $secondary;
+					font-size: 64px;
+					font-style: normal;
+					font-weight: 700;
+				}
+			}
+
 			.margin-bottom {
 				margin-bottom: 28px;
 
@@ -21,11 +43,58 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					flex-direction: row;
 					gap: 18px;
 					flex-shrink: 0;
 					border-radius: 30px;
 					background: #fff;
 					box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+					.gray-line {
+						height: 59px;
+						border-right: solid 2px #d1d1d1;
+					}
+
+					.gap-18 {
+						gap: 18px;
+					}
+
+					.bold-number {
+						font-size: 64px;
+						font-weight: 700;
+						margin-bottom: 0px;
+						height: 78px;
+					}
+
+					.bold-date {
+						font-size: 21px;
+						font-style: normal;
+						font-weight: 700;
+					}
+
+					.rounded-todo {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						width: 69px;
+						min-height: 69px;
+						border-radius: 100%;
+						background-color: #2a3647;
+					}
+
+					.rounded-urgent {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						width: 60px;
+						min-height: 60px;
+						border-radius: 100%;
+						background-color: #ff3d00;
+
+						.urgent-icon {
+							width: 30px;
+						}
+					}
 				}
 
 				.card-todo {

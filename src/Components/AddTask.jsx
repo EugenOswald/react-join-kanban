@@ -1,36 +1,108 @@
 import React from 'react';
-import { useState } from 'react';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Row from 'react-bootstrap/Row';
+import { useState, useEffect } from 'react';
+import { Form, Button, ButtonGroup, Dropdown, DropdownButton, InputGroup, FormControl, Col, Row } from 'react-bootstrap';
 import checkIcon from '../assets/icons/check.svg';
 import clearIcon from '../assets/icons/clear.svg';
+import clearBlueIcon from '../assets/icons/close-blue.svg';
+import personAdd from '../assets/icons/person-add.svg';
+import prioUrgent from '../assets/icons/prio-urgent.svg';
+import prioUrgentWhite from '../assets/icons/prio-urgent-white.svg';
+import prioMedium from '../assets/icons/prio-medium.svg';
+import prioMediumWhite from '../assets/icons/prio-medium-white.svg';
+import prioLow from '../assets/icons/prio-low.svg';
+import prioLowWhite from '../assets/icons/prio-low-white.svg';
 import '../scss/addTask.scss';
 
 const AddTask = ({ userData }) => {
 	const [validated, setValidated] = useState(false);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [selectedContacts, setSelectedContacts] = useState('');
+	const [selectedOptions, setSelectedOptions] = useState([]);
 	const [dueDate, setDueDate] = useState('');
 	const [selectedPrioButton, setSelectedPrioButton] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('');
 	const [subtasks, setSubtasks] = useState('');
+	const [isHovered, setIsHovered] = useState('');
 
-	const handleClick = (value) => {
-		setSelectedPrioButton(value);
+	const [isClearButtonHovered, setIsClearButtonHovered] = useState(false);
+
+	const options = [
+		{ label: 'Contact 1', value: '1' },
+		{ label: 'Contact 2', value: '2' },
+		{ label: 'Contact 3', value: '3' },
+	];
+
+	useEffect(() => {
+		const selectedButton = priorityButtons.find((button) => button.label === selectedPrioButton);
+		if (selectedButton) {
+		}
+	}, [selectedPrioButton]);
+
+	const handleMouseEnter = (label) => {
+		if (isHovered !== label) {
+			setIsHovered(label);
+		}
 	};
 
+	const handleMouseLeave = () => {
+		setIsHovered('');
+	};
+
+	const handleClearClick = () => {
+		clearValues();
+	};
 	const handleSubmit = (event) => {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-
 		setValidated(true);
+	};
+
+	const handleClickPrio = (label) => {
+		if (selectedPrioButton !== label) {
+			setSelectedPrioButton(label);
+		}
+	};
+
+	const handleSelectContacts = (selectedValue) => {
+		if (selectedOptions.includes(selectedValue)) {
+			setSelectedOptions(selectedOptions.filter((option) => option !== selectedValue));
+		} else {
+			setSelectedOptions([...selectedOptions, selectedValue]);
+		}
+	};
+
+	const priorityButtons = [
+		{ label: 'Urgent', variant: 'prio-class-urgent', imageSrc: prioUrgent, imageSrcSelected: prioUrgentWhite },
+		{ label: 'Medium', variant: 'prio-class-medium', imageSrc: prioMedium, imageSrcSelected: prioMediumWhite },
+		{ label: 'Low', variant: 'prio-class-low', imageSrc: prioLow, imageSrcSelected: prioLowWhite },
+	];
+
+	const buttons = priorityButtons.map((button) => (
+		<Button
+			key={button.label}
+			variant={selectedPrioButton === button.label ? button.variant : `outline-${button.label.toLowerCase()}`}
+			onClick={() => handleClickPrio(button.label)}
+			onMouseEnter={() => handleMouseEnter(button.label)}
+			onMouseLeave={handleMouseLeave}
+		>
+			{button.label}
+			<img
+				className='ms-2'
+				src={selectedPrioButton === button.label || isHovered === button.label ? button.imageSrcSelected : button.imageSrc}
+				alt=''
+			/>
+		</Button>
+	));
+
+	const handleMouseEnterClearButton = () => {
+		setIsClearButtonHovered(true);
+	};
+
+	const handleMouseLeaveClearButton = () => {
+		setIsClearButtonHovered(false);
 	};
 
 	const clearValues = () => {};
@@ -43,7 +115,7 @@ const AddTask = ({ userData }) => {
 						<h1 className='mb-4'>Add Task</h1>
 						<Form noValidate className='position-relative' validated={validated} onSubmit={handleSubmit}>
 							<Row className='mb-3 '>
-								<Form.Group as={Col} lg='6' className='pe-lg-4 pe-xl-5 '>
+								<Form.Group as={Col} xxl='6' className='pe-lg-4 pe-xl-5 '>
 									<Form.Label>Title</Form.Label>
 									<Form.Control
 										required
@@ -64,21 +136,41 @@ const AddTask = ({ userData }) => {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 									<Form.Label>Assigned to</Form.Label>
-									<Form.Select
-										required
-										aria-label='Select contacts to assign'
-										className='mb-3'
-										value={selectedContacts}
-										onChange={(e) => setSelectedContacts(e.target.value)}
-									>
-										<option value=''>Select contacts to assign</option>
-										<option value='1'>One</option>
-										<option value='2'>Two</option>
-										<option value='3'>Three</option>
-									</Form.Select>
+									<Dropdown>
+										<Dropdown.Toggle id='dropdown-custom-components'>Select contacts to assign</Dropdown.Toggle>
+
+										<Dropdown.Menu>
+											{options.map((option, idx) => (
+												<div
+													key={idx}
+													className='d-flex align-items-center justify-content-between p-1'
+													onClick={() => handleSelectContacts(option.value)}
+													style={{ cursor: 'pointer' }}
+												>
+													<div className='d-flex align-items-center'>
+														<div className='rounded-name-bg' style={{ backgroundColor: '#111111' }}>
+															<p className='mb-0'>EO</p>
+														</div>
+														<span className='mx-2'>{option.label}</span>
+													</div>
+
+													<Form.Check
+														type='checkbox'
+														id={`dropdown-check-${idx}`}
+														disabled={option.disabled}
+														checked={selectedOptions.includes(option.value)}
+													/>
+												</div>
+											))}
+											<Button type='button' className='add-contact-btn'>
+												Add new contact
+												<img className='ms-2' src={personAdd} alt='' srcSet='' />
+											</Button>
+										</Dropdown.Menu>
+									</Dropdown>
 								</Form.Group>
 
-								<Form.Group as={Col} lg='6' className='d-flex flex-column pe-lg-4 pe-xl-5 '>
+								<Form.Group as={Col} xxl='6' className='d-flex flex-column pe-lg-4 pe-xl-5 '>
 									<Form.Label>Due date</Form.Label>
 									<Form.Control
 										required
@@ -88,26 +180,7 @@ const AddTask = ({ userData }) => {
 										onChange={(e) => setDueDate(e.target.value)}
 									/>
 									<Form.Label>Prio</Form.Label>
-									<ButtonGroup className='mb-3 '>
-										<Button
-											variant={selectedPrioButton === 'Urgent' ? 'primary' : 'outline-primary'}
-											onClick={() => handleClick('Urgent')}
-										>
-											Urgent
-										</Button>
-										<Button
-											variant={selectedPrioButton === 'Medium' ? 'primary' : 'outline-primary'}
-											onClick={() => handleClick('Medium')}
-										>
-											Medium
-										</Button>
-										<Button
-											variant={selectedPrioButton === 'Low' ? 'primary' : 'outline-primary'}
-											onClick={() => handleClick('Low')}
-										>
-											Low
-										</Button>
-									</ButtonGroup>
+									<ButtonGroup className='mb-3 '>{buttons}</ButtonGroup>
 									<Form.Label>Category</Form.Label>
 
 									<Form.Select
@@ -132,9 +205,14 @@ const AddTask = ({ userData }) => {
 									/>
 								</Form.Group>
 								<div className='d-flex justify-content-end mt-4 pe-lg-4 pe-xl-5'>
-									<Button className='clear-form-button me-3 me-1' onClick={clearValues}>
+									<Button
+										className='clear-form-button me-3 me-1'
+										onClick={handleClearClick}
+										onMouseEnter={handleMouseEnterClearButton}
+										onMouseLeave={handleMouseLeaveClearButton}
+									>
 										Clear
-										<img src={clearIcon} alt='' srcSet='' />
+										<img src={isClearButtonHovered ? clearBlueIcon : clearIcon} alt='' />
 									</Button>
 									<Button type='submit' className='submit-form-button me-1'>
 										Create Task

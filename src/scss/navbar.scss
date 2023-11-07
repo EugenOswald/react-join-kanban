@@ -17,10 +17,21 @@ nav.Navbar {
 		margin: 0;
 		li {
 			position: relative;
-			margin-bottom: 23px;
-			a {
-				text-decoration: none;
+
+			padding-left: 50px;
+			.color-gray {
+				color: #a8a8a8;
 			}
 		}
+		a {
+			text-decoration: none;
+			color: #fff;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+	}
+	a.active {
+		background-color: #091931;
+		text-decoration: none;
 	}
 }

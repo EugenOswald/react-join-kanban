@@ -10,6 +10,8 @@
 		border-radius: 30px;
 		border: none;
 		width: 440px;
+
+		
 	}
 
 	.container-toggle-login {
@@ -23,4 +25,10 @@
 			color: black;
 		}
 	}
+	.btn.btn-primary {
+			background-color: $primary;
+			border: none;
+			&:hover{
+			background-color: $secondary;}
+		}
 }

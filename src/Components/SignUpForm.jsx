@@ -28,26 +28,28 @@ const SignUpForm = ({ onRegistration }) => {
 	 */
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmpassword && passwordLenght < 6) {
-			setPasswordAccepted(false);
-			setPasswordLenght(false);
+		if (password !== confirmpassword) {
+			setPasswordMismatch(true);
+			return;
+		}
 
-			try {
-				const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-				const db = getFirestore();
-				setDoc(doc(db, 'users', userCredentials.user.uid), {
-					firstname,
-					lastname,
-					acceptedprivacypolicy,
-				}); /* Wir setzen den setDoc um den doc weil wir noch weite informationen mit geben möchten  */
-				console.log('Regestrieung erfolgreich');
-				onRegistration();
-			} catch (error) {
-				console.log('Fehler beim Anmelden:', error);
-			}
-		} else {
-			setPasswordAccepted(true);
-			setPasswordLenght(true);
+		if (password.length < 6) {
+			setPasswordTooShort(true);
+			return;
+		}
+
+		try {
+			const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+			const db = getFirestore();
+			setDoc(doc(db, 'users', userCredentials.user.uid), {
+				firstname,
+				lastname,
+				acceptedprivacypolicy,
+			}); /* Wir setzen den setDoc um den doc weil wir noch weite informationen mit geben möchten  */
+			console.log('Regestrieung erfolgreich');
+			onRegistration();
+		} catch (error) {
+			console.log('Fehler beim Anmelden:', error);
 		}
 	};
 

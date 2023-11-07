@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
+import '../scss/board.scss';
 
 const Board = ({ userData }) => {
 	return (
-		<div className='d-flex align-items-center justify-content-center w-100'>
-			<p>
-				Good morning, {userData.firstname} {userData.lastname}
-			</p>
+		<div className='board'>
+			<div className='board-container'>
+				<div className='board-position'>
+					<h1 className='mb-4'>Board</h1>
+				</div>
+			</div>
 		</div>
 	);
 };
 
-export default Board
+export default Board;
