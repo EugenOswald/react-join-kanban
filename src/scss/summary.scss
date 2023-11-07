@@ -4,7 +4,7 @@ $breakpoint-lg: 992px;
 .summary {
 	width: 100%;
 	margin-top: 96px;
-	margin-left: 120px;
+	padding-left: 230px;
 
 	.summary-container {
 		display: flex;
@@ -132,7 +132,7 @@ $breakpoint-lg: 992px;
 	.summary {
 		width: 100%;
 		margin-top: 96px;
-		margin-left: 0;
+		padding-left: 0px;
 
 		.summary-container {
 			display: flex;
