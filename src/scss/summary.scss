@@ -1,9 +1,10 @@
 $secondary: #29abe2;
+$breakpoint-lg: 992px;
 
 .summary {
 	width: 100%;
 	margin-top: 96px;
-	margin-left: 230px;
+	margin-left: 120px;
 
 	.summary-container {
 		display: flex;
@@ -122,6 +123,24 @@ $secondary: #29abe2;
 						margin-right: 0;
 					}
 				}
+			}
+		}
+	}
+}
+
+@media (max-width: $breakpoint-lg) {
+	.summary {
+		width: 100%;
+		margin-top: 96px;
+		margin-left: 0;
+
+		.summary-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			padding-top: 0px;
+			.summary-position {
 			}
 		}
 	}

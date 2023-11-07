@@ -1,4 +1,5 @@
 $primary: #2a3647;
+$breakpoint-lg: 992px;
 
 nav.Navbar {
 	display: flex;
@@ -33,5 +34,34 @@ nav.Navbar {
 	a.active {
 		background-color: #091931;
 		text-decoration: none;
+	}
+}
+
+@media (max-width: $breakpoint-lg) {
+	nav.Navbar {
+		width: 100vw;
+		height: 80px;
+		flex-direction: row;
+		bottom: 0;
+
+		ul {
+			height: 100%;
+			a {
+				height: 100%;
+				margin-bottom: 0px;
+				padding: 0px;
+				li {
+					height: 100%;
+
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+		}
+
+		img {
+			width: 24px;
+			height: 24px;
+		}
 	}
 }

@@ -129,23 +129,22 @@ const AddTask = ({ userData }) => {
 									<Form.Control
 										required
 										as='textarea'
-										rows={3}
+										rows={4}
 										placeholder='Enter a Description'
 										className='mb-3 '
 										value={description}
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 									<Form.Label>Assigned to</Form.Label>
-									<Dropdown>
+									<Dropdown className='cursor-pointer '>
 										<Dropdown.Toggle id='dropdown-custom-components'>Select contacts to assign</Dropdown.Toggle>
 
-										<Dropdown.Menu>
+										<Dropdown.Menu className='py-0'>
 											{options.map((option, idx) => (
 												<div
 													key={idx}
-													className='d-flex align-items-center justify-content-between p-1'
+													className='contact d-flex align-items-center justify-content-between p-2 '
 													onClick={() => handleSelectContacts(option.value)}
-													style={{ cursor: 'pointer' }}
 												>
 													<div className='d-flex align-items-center'>
 														<div className='rounded-name-bg' style={{ backgroundColor: '#111111' }}>
@@ -162,10 +161,6 @@ const AddTask = ({ userData }) => {
 													/>
 												</div>
 											))}
-											<Button type='button' className='add-contact-btn'>
-												Add new contact
-												<img className='ms-2' src={personAdd} alt='' srcSet='' />
-											</Button>
 										</Dropdown.Menu>
 									</Dropdown>
 								</Form.Group>

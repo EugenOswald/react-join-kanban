@@ -9,10 +9,10 @@ const Interface = ({ user, userData, logout }) => {
 
 	return (
 		<>
-			<div className='d-flex'>
+			<div className='d-flex flex-column'>
 				<Header userData={userData} logout={logout} />
-				<Navbar />
 				<AppRoutes userData={userData} user={user} />
+				<Navbar />
 			</div>
 		</>
 	);

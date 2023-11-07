@@ -36,6 +36,7 @@ $secondary: #29abe2;
 			}
 			.dropdown {
 				.btn.btn-primary {
+					cursor: pointer;
 					display: block;
 					position: relative;
 					width: 100%;
@@ -89,6 +90,12 @@ $secondary: #29abe2;
 				}
 				.dropdown-menu {
 					width: 100%;
+					.contact {
+						cursor: pointer;
+						&:hover {
+							background-color: #f0f0f0;
+						}
+					}
 					.form-check {
 						width: 100%;
 					}

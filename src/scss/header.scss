@@ -1,3 +1,5 @@
+$breakpoint-lg: 992px;
+
 .Header {
 	display: flex;
 	justify-content: space-between;
@@ -9,6 +11,10 @@
 	position: absolute;
 	padding-left: 300px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+	img {
+		width: 32px;
+	}
 
 	.dropdown button.dropdown-toggle {
 		display: flex;
@@ -25,5 +31,12 @@
 		&::after {
 			content: none;
 		}
+	}
+}
+
+@media (max-width: $breakpoint-lg) {
+	.Header {
+		height: 80px;
+		padding-left: 0px;
 	}
 }

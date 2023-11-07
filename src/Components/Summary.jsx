@@ -46,7 +46,7 @@ const Summary = ({ userData }) => {
 	}, []);
 	return (
 		<div className='summary'>
-			<div className='summary-container'>
+			<div className='summary-container px-5'>
 				<div className='summary-position'>
 					<div className='d-flex justify-content-start align-items-center ps-2'>
 						<h1>Join 360</h1>

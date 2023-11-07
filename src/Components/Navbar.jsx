@@ -11,35 +11,37 @@ import '../scss/navbar.scss';
 const Navbar = () => {
 	return (
 		<nav className='Navbar'>
-			<img src={joinLogo} alt='' />
-			<ul className='d-flex flex-column w-100'>
-				<NavLink to='/' exact >
-					<li>
-						<img src={summery} alt='' className='pe-3' />
+			<img className='d-none d-lg-flex' src={joinLogo} alt='' />
+
+			<ul className='d-flex flex-row flex-lg-column w-100 justify-content-center'>
+				<NavLink to='/' exact>
+					<li className='d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start'>
+						<img src={summery} alt='' className='pe-lg-3' />
 						Summery
 					</li>
 				</NavLink>
 				<NavLink to='/addtask' exact>
-					<li>
-						<img src={addtask} alt='' className='pe-3' />
+					<li className='d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start'>
+						<img src={addtask} alt='' className='pe-lg-3' />
 						Add Task
 					</li>
 				</NavLink>
 				<NavLink to='/board' exact>
-					<li>
-						<img src={board} alt='' className='pe-3' />
+					<li className='d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start'>
+						<img src={board} alt='' className='pe-lg-3' />
 						Board
 					</li>
 				</NavLink>
 				<NavLink to='/contacts' exact>
-					<li>
-						<img src={contacts} alt='' className='pe-3' />
+					<li className='d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start'>
+						<img src={contacts} alt='' className='pe-lg-3' />
 						Contacts
 					</li>
 				</NavLink>
 			</ul>
-			<ul className='d-flex flex-column w-100'>
-				<li className='mb-3'>
+
+			<ul className='d-none d-lg-flex flex-column w-100'>
+				<li className='d-flex flex-column'>
 					<Link to='/privacypolicy' className='color-gray'>
 						Privacy Policy
 					</Link>

@@ -4,6 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import helpIcon from '../assets/icons/help-icon.svg';
 import { Link } from 'react-router-dom';
+import joinLogo from '../assets/icons/join-logo.svg';
 
 const Header = ({ userData, logout }) => {
 	const letterName = (userData) => {
@@ -15,7 +16,8 @@ const Header = ({ userData, logout }) => {
 
 	return (
 		<div className='Header'>
-			<p>Kanban Project Management Tool</p>
+			<img className='d-lg-none d-flex ms-4' src={joinLogo} alt='' />
+			<p className='d-none d-lg-flex'>Kanban Project Management Tool</p>
 			<div className='d-flex'>
 				<Link to='/help' className='d-flex justify-content-center align-items-center me-3'>
 					<img src={helpIcon} alt='' />
