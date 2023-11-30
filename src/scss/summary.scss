@@ -133,14 +133,83 @@ $breakpoint-lg: 992px;
 		width: 100%;
 		margin-top: 96px;
 		padding-left: 0px;
+		margin-bottom: 100px;
 
 		.summary-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100%;
-			padding-top: 0px;
 			.summary-position {
+				.margin-bottom {
+					margin-bottom: 14px;
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+
+					.card-layout {
+						.gray-line {
+							height: 40px;
+							border-right: solid 2px #d1d1d1;
+						}
+
+						.bold-number {
+							font-size: 40px;
+							height: 60px;
+						}
+
+						.bold-date {
+							font-size: 16px;
+						}
+
+						.rounded-todo {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 69px;
+							min-height: 69px;
+							border-radius: 100%;
+							background-color: #2a3647;
+						}
+
+						.rounded-urgent {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 60px;
+							min-height: 60px;
+							border-radius: 100%;
+							background-color: #ff3d00;
+
+							.urgent-icon {
+								width: 30px;
+							}
+						}
+					}
+
+					.card-todo {
+						width: 264px;
+						height: 168px;
+						padding: 38px 19px;
+						margin-right: 32px;
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+
+					.card-urgent {
+						width: 560px;
+						height: 168px;
+					}
+
+					.card-progress {
+						width: 168px;
+						height: 168px;
+						margin-right: 28px;
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+				}
 			}
 		}
 	}
