@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-const shortName = () => {
-  return (
-    <div>shortName</div>
-  )
-}
+const ShortName = ({ userData }) => {
+	const getLetterName = () => {
+		let firstNameLetter = userData.firstname.charAt(0);
+		let lastNameLetter = userData.lastname.charAt(0);
+		return (firstNameLetter + lastNameLetter).toUpperCase();
+	};
 
-export default shortName
+	return <>{getLetterName()}</>;
+};
+
+export default ShortName;

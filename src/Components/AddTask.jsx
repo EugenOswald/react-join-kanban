@@ -1,6 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { db } from './Firebase';
+import { getDocs, collection } from 'firebase/firestore';
 import { Form, Button, ButtonGroup, Dropdown, DropdownButton, InputGroup, FormControl, Col, Row } from 'react-bootstrap';
+import ShortName from '../utils/shortNameHelpers';
 import checkIcon from '../assets/icons/check.svg';
 import clearIcon from '../assets/icons/clear.svg';
 import clearBlueIcon from '../assets/icons/close-blue.svg';
@@ -24,13 +27,30 @@ const AddTask = ({ userData }) => {
 	const [subtasks, setSubtasks] = useState('');
 	const [isHovered, setIsHovered] = useState('');
 
+	const [userList, setUserList] = useState([]);
 	const [isClearButtonHovered, setIsClearButtonHovered] = useState(false);
+
+	const usersCollectionRef = collection(db, 'users');
 
 	const options = [
 		{ label: 'Contact 1', value: '1' },
 		{ label: 'Contact 2', value: '2' },
 		{ label: 'Contact 3', value: '3' },
 	];
+
+	useEffect(() => {
+		const getUsersList = async () => {
+			try {
+				const data = await getDocs(usersCollectionRef);
+				const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+				setUserList(filteredData);
+				console.log(userList);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		getUsersList();
+	}, []);
 
 	useEffect(() => {
 		const selectedButton = priorityButtons.find((button) => button.label === selectedPrioButton);
@@ -43,7 +63,6 @@ const AddTask = ({ userData }) => {
 			setIsHovered(label);
 		}
 	};
-
 
 	const handleMouseLeave = () => {
 		setIsHovered('');
@@ -141,24 +160,26 @@ const AddTask = ({ userData }) => {
 										<Dropdown.Toggle id='dropdown-custom-components'>Select contacts to assign</Dropdown.Toggle>
 
 										<Dropdown.Menu className='py-0'>
-											{options.map((option, idx) => (
+											{userList.map((user) => (
 												<div
-													key={idx}
+													key={user.id}
 													className='contact d-flex align-items-center justify-content-between p-2 '
-													onClick={() => handleSelectContacts(option.value)}
+													onClick={() => handleSelectContacts(user.id)}
 												>
 													<div className='d-flex align-items-center'>
 														<div className='rounded-name-bg' style={{ backgroundColor: '#111111' }}>
-															<p className='mb-0'>EO</p>
+															<p className='mb-0'>
+																<ShortName userData={user} />
+															</p>
 														</div>
-														<span className='mx-2'>{option.label}</span>
+														<span className='ms-3'>{user.firstname}</span>
+														<span className='ms-1'>{user.lastname}</span>
 													</div>
 
 													<Form.Check
 														type='checkbox'
-														id={`dropdown-check-${idx}`}
-														disabled={option.disabled}
-														checked={selectedOptions.includes(option.value)}
+														id={`dropdown-check-${user.id}`}
+														checked={selectedOptions.includes(user.id)}
 													/>
 												</div>
 											))}

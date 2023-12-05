@@ -5,15 +5,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import helpIcon from '../assets/icons/help-icon.svg';
 import { Link } from 'react-router-dom';
 import joinLogo from '../assets/icons/join-logo.svg';
+import ShortName from '../utils/shortNameHelpers';
 
 const Header = ({ userData, logout }) => {
-	const letterName = (userData) => {
-		let firstNameLetter = userData.firstname.charAt(0);
-		let lastNameLetter = userData.lastname.charAt(0);
-		let letterName = firstNameLetter + lastNameLetter;
-		return letterName.toUpperCase();
-	};
-
 	return (
 		<div className='Header'>
 			<img className='d-lg-none d-flex ms-4' src={joinLogo} alt='' />
@@ -22,7 +16,7 @@ const Header = ({ userData, logout }) => {
 				<Link to='/help' className='d-flex justify-content-center align-items-center me-3'>
 					<img src={helpIcon} alt='' />
 				</Link>
-				<DropdownButton className='me-4' id='dropdown-basic-button' title={letterName(userData)}>
+				<DropdownButton className='me-4' id='dropdown-basic-button' title={<ShortName userData={userData} />}>
 					<Dropdown.Item>
 						<Link to='/legalnotice'>Legal Notice</Link>
 					</Dropdown.Item>
