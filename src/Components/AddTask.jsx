@@ -25,8 +25,8 @@ const AddTask = ({ userData }) => {
 	const [selectedPrioButton, setSelectedPrioButton] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('');
 	const [subtasks, setSubtasks] = useState('');
-	const [isHovered, setIsHovered] = useState('');
 
+	const [isHovered, setIsHovered] = useState('');
 	const [userList, setUserList] = useState([]);
 	const [isClearButtonHovered, setIsClearButtonHovered] = useState(false);
 
@@ -38,13 +38,29 @@ const AddTask = ({ userData }) => {
 		{ label: 'Contact 3', value: '3' },
 	];
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		try {
+			const db = getFirestore();
+			setDoc(doc(db, 'todos', userCredentials.user.uid), {
+				firstname,
+				lastname,
+				acceptedprivacypolicy,
+			}); /* Wir setzen den setDoc um den doc weil wir noch weite informationen mit geben möchten  */
+			console.log('Regestrieung erfolgreich');
+			onRegistration();
+		} catch (error) {
+			console.log('Fehler beim Anmelden:', error);
+		}
+	};
+
 	useEffect(() => {
 		const getUsersList = async () => {
 			try {
 				const data = await getDocs(usersCollectionRef);
 				const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 				setUserList(filteredData);
-				console.log(userList);
 			} catch (err) {
 				console.error(err);
 			}
@@ -70,14 +86,6 @@ const AddTask = ({ userData }) => {
 
 	const handleClearClick = () => {
 		clearValues();
-	};
-	const handleSubmit = (event) => {
-		const form = event.currentTarget;
-		if (form.checkValidity() === false) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-		setValidated(true);
 	};
 
 	const handleClickPrio = (label) => {
@@ -227,11 +235,32 @@ const AddTask = ({ userData }) => {
 										onClick={handleClearClick}
 										onMouseEnter={handleMouseEnterClearButton}
 										onMouseLeave={handleMouseLeaveClearButton}
+										disabled={
+											!title &&
+											!description &&
+											!selectedOptions.length &&
+											!dueDate &&
+											!selectedPrioButton &&
+											!selectedCategory
+										}
 									>
 										Clear
 										<img src={isClearButtonHovered ? clearBlueIcon : clearIcon} alt='' />
 									</Button>
-									<Button type='submit' className='submit-form-button me-1'>
+									<Button
+										type='submit'
+										className='submit-form-button me-1'
+										disabled={
+											!(
+												title &&
+												description &&
+												selectedOptions.length &&
+												dueDate &&
+												selectedPrioButton &&
+												selectedCategory
+											)
+										}
+									>
 										Create Task
 										<img src={checkIcon} alt='' srcSet='' />
 									</Button>
