@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db } from './Firebase';
-import { getDocs, collection } from 'firebase/firestore';
-import { Form, Button, ButtonGroup, Dropdown, DropdownButton, InputGroup, FormControl, Col, Row } from 'react-bootstrap';
+import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { Form, Button, ButtonGroup, Dropdown, DropdownButton, InputGroup, FormControl, Col, Row, Toast } from 'react-bootstrap';
 import ShortName from '../utils/shortNameHelpers';
 import checkIcon from '../assets/icons/check.svg';
 import clearIcon from '../assets/icons/clear.svg';
@@ -17,7 +17,7 @@ import prioLowWhite from '../assets/icons/prio-low-white.svg';
 import '../scss/addTask.scss';
 
 const AddTask = ({ userData }) => {
-	const [validated, setValidated] = useState(false);
+	/* State Variable */
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [selectedOptions, setSelectedOptions] = useState([]);
@@ -26,11 +26,14 @@ const AddTask = ({ userData }) => {
 	const [selectedCategory, setSelectedCategory] = useState('');
 	const [subtasks, setSubtasks] = useState('');
 
+	const [validated, setValidated] = useState(false);
 	const [isHovered, setIsHovered] = useState('');
 	const [userList, setUserList] = useState([]);
 	const [isClearButtonHovered, setIsClearButtonHovered] = useState(false);
+	const [taskAddedSuccessfully, setTaskAddedSuccessfully] = useState(false);
 
 	const usersCollectionRef = collection(db, 'users');
+	const todosCollectionRef = collection(db, 'todos');
 
 	const options = [
 		{ label: 'Contact 1', value: '1' },
@@ -42,14 +45,17 @@ const AddTask = ({ userData }) => {
 		e.preventDefault();
 
 		try {
-			const db = getFirestore();
-			setDoc(doc(db, 'todos', userCredentials.user.uid), {
-				firstname,
-				lastname,
-				acceptedprivacypolicy,
-			}); /* Wir setzen den setDoc um den doc weil wir noch weite informationen mit geben möchten  */
+			await addDoc(todosCollectionRef, {
+				title: title,
+				description: description,
+				selectedOptions: selectedOptions,
+				dueDate: dueDate,
+				prio: selectedPrioButton,
+				category: selectedCategory,
+				subtasks: subtasks,
+			});
+			setTaskAddedSuccessfully(true);
 			console.log('Regestrieung erfolgreich');
-			onRegistration();
 		} catch (error) {
 			console.log('Fehler beim Anmelden:', error);
 		}
@@ -139,6 +145,17 @@ const AddTask = ({ userData }) => {
 		<>
 			<div className='add-task'>
 				<div className='add-task-container'>
+					{taskAddedSuccessfully && (
+						<Toast
+							className='position-absolute bg-success-subtle text-center z-3 text-success fs-3'
+							onClose={() => setTaskAddedSuccessfully(false)}
+							show={taskAddedSuccessfully}
+							delay={3000}
+							autohide
+						>
+							<Toast.Body>Task erfolgreich hinzugefügt!</Toast.Body>
+						</Toast>
+					)}
 					<div className='add-task-position'>
 						<h1 className='mb-4'>Add Task</h1>
 						<Form noValidate className='position-relative' validated={validated} onSubmit={handleSubmit}>
