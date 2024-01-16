@@ -55,9 +55,11 @@ const AddTask = ({ userData }) => {
 				subtasks: subtasks,
 			});
 			setTaskAddedSuccessfully(true);
-			console.log('Regestrieung erfolgreich');
+            console.log('Regestrieung erfolgreich');
+            clearValues();
 		} catch (error) {
-			console.log('Fehler beim Anmelden:', error);
+            console.log('Fehler beim Anmelden:', error);
+            clearValues();
 		}
 	};
 
@@ -155,7 +157,7 @@ const AddTask = ({ userData }) => {
 							className='position-absolute bg-success-subtle text-center z-3 text-success fs-3'
 							onClose={() => setTaskAddedSuccessfully(false)}
 							show={taskAddedSuccessfully}
-							delay={3000}
+							delay={2000}
 							autohide
 						>
 							<Toast.Body>Task erfolgreich hinzugefügt!</Toast.Body>
@@ -175,7 +177,7 @@ const AddTask = ({ userData }) => {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 									<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-									<Form.Label>Description</Form.Label>
+									<Form.Label className=' pt-3 pt-xxl-0'>Description</Form.Label>
 									<Form.Control
 										required
 										as='textarea'
@@ -218,7 +220,7 @@ const AddTask = ({ userData }) => {
 									</Dropdown>
 								</Form.Group>
 
-								<Form.Group as={Col} xxl='6' className='d-flex flex-column pe-lg-4 pe-xl-5 '>
+								<Form.Group as={Col} xxl='6' className='d-flex flex-column pt-3 pt-xxl-0 pe-lg-4 pe-xl-5 '>
 									<Form.Label>Due date</Form.Label>
 									<Form.Control
 										required
