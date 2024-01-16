@@ -90,9 +90,6 @@ const AddTask = ({ userData }) => {
 		setIsHovered('');
 	};
 
-	const handleClearClick = () => {
-		clearValues();
-	};
 
 	const handleClickPrio = (label) => {
 		if (selectedPrioButton !== label) {
@@ -139,7 +136,15 @@ const AddTask = ({ userData }) => {
 		setIsClearButtonHovered(false);
 	};
 
-	const clearValues = () => {};
+	const clearValues = () => {
+		setTitle('');
+		setDescription('');
+		setSelectedOptions([]);
+		setDueDate('');
+		setSelectedPrioButton('');
+		setSelectedCategory('');
+		setSubtasks('');
+	};
 
 	return (
 		<>
@@ -204,6 +209,7 @@ const AddTask = ({ userData }) => {
 													<Form.Check
 														type='checkbox'
 														id={`dropdown-check-${user.id}`}
+														onChange={() => handleSelectContacts(user.id)}
 														checked={selectedOptions.includes(user.id)}
 													/>
 												</div>
@@ -249,7 +255,7 @@ const AddTask = ({ userData }) => {
 								<div className='d-flex justify-content-end mt-4 pe-lg-4 pe-xl-5'>
 									<Button
 										className='clear-form-button me-3 me-1'
-										onClick={handleClearClick}
+										onClick={clearValues}
 										onMouseEnter={handleMouseEnterClearButton}
 										onMouseLeave={handleMouseLeaveClearButton}
 										disabled={
