@@ -20,7 +20,7 @@ const AddTask = ({ userData }) => {
 	/* State Variable */
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [selectedOptions, setSelectedOptions] = useState([]);
+	const [selectedUsers, setSelectedUsers] = useState([]);
 	const [dueDate, setDueDate] = useState('');
 	const [selectedPrioButton, setSelectedPrioButton] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('');
@@ -48,18 +48,18 @@ const AddTask = ({ userData }) => {
 			await addDoc(todosCollectionRef, {
 				title: title,
 				description: description,
-				selectedOptions: selectedOptions,
+				selectedUsers: selectedUsers,
 				dueDate: dueDate,
 				prio: selectedPrioButton,
 				category: selectedCategory,
 				subtasks: subtasks,
 			});
 			setTaskAddedSuccessfully(true);
-            console.log('Regestrieung erfolgreich');
-            clearValues();
+			console.log('Regestrieung erfolgreich');
+			clearValues();
 		} catch (error) {
-            console.log('Fehler beim Anmelden:', error);
-            clearValues();
+			console.log('Fehler beim Anmelden:', error);
+			clearValues();
 		}
 	};
 
@@ -92,7 +92,6 @@ const AddTask = ({ userData }) => {
 		setIsHovered('');
 	};
 
-
 	const handleClickPrio = (label) => {
 		if (selectedPrioButton !== label) {
 			setSelectedPrioButton(label);
@@ -100,10 +99,10 @@ const AddTask = ({ userData }) => {
 	};
 
 	const handleSelectContacts = (selectedValue) => {
-		if (selectedOptions.includes(selectedValue)) {
-			setSelectedOptions(selectedOptions.filter((option) => option !== selectedValue));
+		if (selectedUsers.includes(selectedValue)) {
+			setSelectedUsers(selectedUsers.filter((option) => option !== selectedValue));
 		} else {
-			setSelectedOptions([...selectedOptions, selectedValue]);
+			setSelectedUsers([...selectedUsers, selectedValue]);
 		}
 	};
 
@@ -141,7 +140,7 @@ const AddTask = ({ userData }) => {
 	const clearValues = () => {
 		setTitle('');
 		setDescription('');
-		setSelectedOptions([]);
+		setSelectedUsers([]);
 		setDueDate('');
 		setSelectedPrioButton('');
 		setSelectedCategory('');
@@ -212,12 +211,35 @@ const AddTask = ({ userData }) => {
 														type='checkbox'
 														id={`dropdown-check-${user.id}`}
 														onChange={() => handleSelectContacts(user.id)}
-														checked={selectedOptions.includes(user.id)}
+														checked={selectedUsers.includes(user.id)}
 													/>
 												</div>
 											))}
 										</Dropdown.Menu>
 									</Dropdown>
+									<div className='d-flex flex-wrap'>
+										{selectedUsers.map((uid) => {
+											const user = userList.find((u) => u.id === uid);
+											if (!user) {
+												return null;
+											}
+
+											return (
+												<div
+													key={user.id}
+													className='contact d-flex align-items-center justify-content-between ps-0 p-2'
+												>
+													<div className='d-flex align-items-center'>
+														<div className='rounded-name-bg' style={{ backgroundColor: '#111111' }}>
+															<p className='mb-0'>
+																<ShortName userData={user} />
+															</p>
+														</div>
+													</div>
+												</div>
+											);
+										})}
+									</div>
 								</Form.Group>
 
 								<Form.Group as={Col} xxl='6' className='d-flex flex-column pt-3 pt-xxl-0 pe-lg-4 pe-xl-5 '>
@@ -263,7 +285,7 @@ const AddTask = ({ userData }) => {
 										disabled={
 											!title &&
 											!description &&
-											!selectedOptions.length &&
+											!selectedUsers.length &&
 											!dueDate &&
 											!selectedPrioButton &&
 											!selectedCategory
@@ -279,7 +301,7 @@ const AddTask = ({ userData }) => {
 											!(
 												title &&
 												description &&
-												selectedOptions.length &&
+												selectedUsers.length &&
 												dueDate &&
 												selectedPrioButton &&
 												selectedCategory
