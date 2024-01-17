@@ -17,19 +17,17 @@ const Summary = ({ userData }) => {
 
 	useEffect(() => {
 		const getTodoList = async () => {
-			//Read the Data
-			//Set the Todolist
 			try {
 				const data = await getDocs(todoCollectionRef);
 				const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
 				setTodoList(filteredData);
-
-				const urgentTodos = filteredData.filter((todo) => todo.prio === 'urgent');
+console.log(filteredData);
+				const urgentTodos = filteredData.filter((todo) => todo.prio === 'Urgent');
 				setHighPrioCount(urgentTodos.length);
 
 				const nextUrgentDate = urgentTodos.reduce((earliest, todo) => {
-					const [day, month, year] = todo.date.split('.').map(Number);
+					const [year, month, day ] = todo.dueDate.split('-').map(Number);
 					const todoDate = new Date(year, month - 1, day);
 					return !earliest || todoDate < earliest ? todoDate : earliest;
 				}, null);
