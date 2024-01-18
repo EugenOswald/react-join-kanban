@@ -13,5 +13,30 @@ $secondary: #29abe2;
 		padding: 100px;
 		.board-position {
 		}
+		.nav-menu-board {
+			display: flex;
+			.btn {
+				font-size: 21px;
+				font-weight: 700;
+				max-height: 48px;
+			}
+			
+			.input-group {
+				margin-right: 20px;
+				input {
+					max-height: 48px;
+					max-width: 312px;
+				}
+			}
+		}
+	}
+	h4 {
+		color: #42526e;
+		font-size: 21px;
+		font-weight: 700;
+	}
+
+	p {
+		color: #a8a8a8;
 	}
 }

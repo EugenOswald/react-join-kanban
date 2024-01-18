@@ -3,6 +3,21 @@ $secondary: #29abe2;
 $breakpoint-lg: 992px;
 $breakpoint-md: 768px;
 
+.modal-body {
+	.add-task {
+		width: 100%;
+		margin-top: 0px;
+		padding-left: 0px;
+		.add-task-container {
+			width: 100%;
+			padding: 10px 25px;
+		}
+	}
+	h1 {
+		display: none;
+	}
+}
+
 .add-task {
 	width: 100%;
 	margin-top: 96px;
@@ -103,19 +118,19 @@ $breakpoint-md: 768px;
 					}
 				}
 			}
-            .rounded-name-bg {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 42px;
-                width: 42px;
-                border-radius: 100%;
-                border: solid 2px white;
-                p {
-                    color: white;
-                    font-size: 12px;
-                }
-            }
+			.rounded-name-bg {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 42px;
+				width: 42px;
+				border-radius: 100%;
+				border: solid 2px white;
+				p {
+					color: white;
+					font-size: 12px;
+				}
+			}
 		}
 	}
 
