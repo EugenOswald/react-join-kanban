@@ -53,6 +53,7 @@ const AddTask = ({ userData }) => {
 				prio: selectedPrioButton,
 				category: selectedCategory,
 				subtasks: subtasks,
+				status: 'todo',
 			});
 			setTaskAddedSuccessfully(true);
 			console.log('Regestrieung erfolgreich');
