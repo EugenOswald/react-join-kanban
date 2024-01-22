@@ -8,7 +8,7 @@ import penIconGray from '../assets/icons/pen-icon-gray.svg';
 import prioUrgent from '../assets/icons/prio-urgent-white.svg';
 import '../scss/summary.scss';
 
-const Summary = ({ userData }) => {
+const Summary = React.memo(({ userData }) => {
 	const [todoList, setTodoList] = useState([]);
 	const [highPrioCount, setHighPrioCount] = useState(0);
 	const [nextUrgentDate, setNextUrgentDate] = useState(null);
@@ -20,9 +20,7 @@ const Summary = ({ userData }) => {
 			try {
 				const data = await getDocs(todoCollectionRef);
 				const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-
 				setTodoList(filteredData);
-console.log(filteredData);
 				const urgentTodos = filteredData.filter((todo) => todo.prio === 'Urgent');
 				setHighPrioCount(urgentTodos.length);
 
@@ -137,6 +135,6 @@ console.log(filteredData);
 			</div>
 		</div>
 	);
-};
+});
 
 export default Summary;

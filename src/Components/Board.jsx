@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../scss/board.scss';
 import BoardCard from './BoardCard';
-import { getDocs, collection } from 'firebase/firestore';
+import { collection, onSnapshot, updateDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -10,7 +10,7 @@ import searchIcon from '../assets/icons/search.svg';
 import addIcon from '../assets/icons/add.svg';
 import AddTaskModal from './AddTaskModal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import useStrictDroppable from '../utils/useStrictDroppable'
+import useStrictDroppable from '../utils/useStrictDroppable';
 
 const Board = ({ userData }) => {
 	const [todos, setTodos] = useState([]);
@@ -19,19 +19,49 @@ const Board = ({ userData }) => {
 	const enabled = useStrictDroppable(loading);
 
 	useEffect(() => {
-		const fetchTodos = async () => {
-			const todoCollectionRef = collection(db, 'todos');
-			const data = await getDocs(todoCollectionRef);
-			setTodos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		const todoCollectionRef = collection(db, 'todos');
+		/* 		const washingtonRef = doc(db, 'todos'); */
+
+		// Der onSnapshot-Listener wird aufgerufen, wenn sich etwas in der 'todos' Sammlung ändert
+		const unsubscribe = onSnapshot(todoCollectionRef, (snapshot) => {
+			const newTodos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+			setTodos(newTodos);
 			setLoading(false);
-		};
-		console.log('Fetching Todos...');
-		fetchTodos();
+
+		});
+
+		console.log('hi');
+		return () => unsubscribe();
 	}, []);
 
-	const onDragEnd = (result) => {
-		console.log('Drag Ended:', result);
-	};
+	const onDragEnd = async (result) => {
+		const { destination, draggableId } = result;
+
+		// Prüfe, ob das Element überhaupt irgendwo abgelegt wurde
+		if (!destination) {
+			return;
+		}
+
+		// Aktualisiere den lokalen Zustand sofort
+		const updatedTodos = todos.map((todo) => {
+			if (todo.id === draggableId) {
+				return { ...todo, status: destination.droppableId };
+			}
+			return todo;
+		});
+		setTodos(updatedTodos);
+
+		try {
+			const docRef = doc(db, 'todos', draggableId);
+			await updateDoc(docRef, {
+				status: destination.droppableId,
+			});
+		} catch (error) {
+			console.error('Fehler beim Abrufen des Dokuments: ', error);
+			setTodos(todos);
+		}
+		setLoading(false);
+	}
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
@@ -57,19 +87,15 @@ const Board = ({ userData }) => {
 						</div>
 						<div className='d-flex col-12 justify-content-between'>
 							{enabled &&
-								['todo', 'progress', 'feedback', 'done'].map((status) => (
-									<Droppable droppableId={status} key={status}>
+								['todo', 'progress', 'feedback', 'done'].map((fbId) => (
+									<Droppable droppableId={fbId} key={fbId}>
 										{(provided, snapshot) => (
-											<div
-												ref={provided.innerRef}
-												{...provided.droppableProps}
-												className={`d-flex flex-column board-list ${snapshot.isDraggingOver ? 'drag-over' : ''}`}
-											>
-												<h4>{status.charAt(0).toUpperCase() + status.slice(1)}</h4>
-												<div>
-													{todos.filter((todo) => todo.status === status).length > 0 ? (
+											<div className={`d-flex flex-column board-list ${snapshot.isDraggingOver ? 'drag-over' : ''}`}>
+												<h4>{fbId.charAt(0).toUpperCase() + fbId.slice(1)}</h4>
+												<div ref={provided.innerRef} {...provided.droppableProps}>
+													{todos.filter((todo) => todo.status === fbId).length > 0 ? (
 														todos
-															.filter((todo) => todo.status === status)
+															.filter((todo) => todo.status === fbId)
 															.map((todo, index) => (
 																<Draggable key={todo.id} draggableId={todo.id} index={index}>
 																	{(provided) => (
@@ -78,7 +104,7 @@ const Board = ({ userData }) => {
 																			{...provided.draggableProps}
 																			{...provided.dragHandleProps}
 																		>
-																			<BoardCard todo={todo} userData={userData} />
+																			<BoardCard id={todo.id} userData={userData} />
 																		</div>
 																	)}
 																</Draggable>

@@ -35,12 +35,6 @@ const AddTask = ({ userData }) => {
 	const usersCollectionRef = collection(db, 'users');
 	const todosCollectionRef = collection(db, 'todos');
 
-	const options = [
-		{ label: 'Contact 1', value: '1' },
-		{ label: 'Contact 2', value: '2' },
-		{ label: 'Contact 3', value: '3' },
-	];
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -264,9 +258,11 @@ const AddTask = ({ userData }) => {
 										onChange={(e) => setSelectedCategory(e.target.value)}
 									>
 										<option value=''>Select task category</option>
-										<option value='1'>One</option>
-										<option value='2'>Two</option>
-										<option value='3'>Three</option>
+										<option value='User Story:'>User Story</option>
+										<option value='Technical Task'>Technical Task</option>
+										<option value='Bug/Defect'>Bug/Defect</option>
+										<option value='Enhancement/Feature Request'>Enhancement/Feature Request</option>
+										<option value='Research/Investigation'>Research/Investigation</option>
 									</Form.Select>
 
 									<Form.Label>Subtasks</Form.Label>

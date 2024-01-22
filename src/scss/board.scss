@@ -30,7 +30,7 @@ $secondary: #29abe2;
 			}
 		}
 		.board-list {
-			min-width: 246px;
+			min-width: 252px;
 
 			.no-task {
 				display: flex;
@@ -47,6 +47,9 @@ $secondary: #29abe2;
 			}
 			.drag-over {
 				border: 1px dotted #000; 
+                width: 400px;
+                height: 900px;
+                background-color: #000;
 			}
 		}
 	}
