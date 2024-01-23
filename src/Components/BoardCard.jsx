@@ -15,7 +15,11 @@ const BoardCard = React.memo(({ todo, userData }) => {
 				<Card.Body>
 					{todo ? (
 						<>
-							<Card.Title>{todo.title}</Card.Title>
+							<div>
+								<Card.Title className='category-header'>
+									<p style={{backgroundColor: todo.categoryColor}}>{todo.category}</p>
+								</Card.Title>
+							</div>
 							<Card.Title>{todo.title}</Card.Title>
 							<Card.Text>{todo.description}</Card.Text>
 						</>

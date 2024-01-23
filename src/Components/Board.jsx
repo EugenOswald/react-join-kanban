@@ -12,7 +12,7 @@ import AddTaskModal from './AddTaskModal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import useStrictDroppable from '../utils/useStrictDroppable';
 
-const Board = ({ userData }) => {
+const Board = React.memo(({ userData }) => {
 	const [todos, setTodos] = useState([]);
 	const [modalShow, setModalShow] = React.useState(false);
 	const [loading, setLoading] = useState(true);
@@ -125,6 +125,6 @@ const Board = ({ userData }) => {
 			</div>
 		</DragDropContext>
 	);
-};
+});
 
 export default Board;

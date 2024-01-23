@@ -24,6 +24,7 @@ const AddTask = ({ userData }) => {
 	const [dueDate, setDueDate] = useState('');
 	const [selectedPrioButton, setSelectedPrioButton] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('');
+	const [selectedCategorColor, setSelectedCategoryColor] = useState('');
 	const [subtasks, setSubtasks] = useState('');
 
 	const [validated, setValidated] = useState(false);
@@ -46,14 +47,13 @@ const AddTask = ({ userData }) => {
 				dueDate: dueDate,
 				prio: selectedPrioButton,
 				category: selectedCategory,
+				categoryColor: selectedCategorColor,
 				subtasks: subtasks,
 				status: 'todo',
 			});
 			setTaskAddedSuccessfully(true);
-			console.log('Regestrieung erfolgreich');
 			clearValues();
 		} catch (error) {
-			console.log('Fehler beim Anmelden:', error);
 			clearValues();
 		}
 	};
@@ -139,6 +139,7 @@ const AddTask = ({ userData }) => {
 		setDueDate('');
 		setSelectedPrioButton('');
 		setSelectedCategory('');
+		setSelectedCategoryColor('');
 		setSubtasks('');
 	};
 
@@ -252,17 +253,22 @@ const AddTask = ({ userData }) => {
 
 									<Form.Select
 										required
-										aria-label='Select task category'
+										aria-label={selectedCategory}
 										className='mb-3'
 										value={selectedCategory}
-										onChange={(e) => setSelectedCategory(e.target.value)}
+										onChange={(e) => {
+											const [category, color] = e.target.value.split(',');
+											setSelectedCategory(category);
+
+											setSelectedCategoryColor(color);
+										}}
 									>
-										<option value=''>Select task category</option>
-										<option value='User Story:'>User Story</option>
-										<option value='Technical Task'>Technical Task</option>
-										<option value='Bug/Defect'>Bug/Defect</option>
-										<option value='Enhancement/Feature Request'>Enhancement/Feature Request</option>
-										<option value='Research/Investigation'>Research/Investigation</option>
+										<option value=''>Open this select menu</option>
+										<option value='User Story,#FFA35E'>User Story</option>
+										<option value='Technical Task,#6E52FF'>Technical Task</option>
+										<option value='Bug/Defect,#FF7A00'>Bug/Defect</option>
+										<option value='Enhancement/Feature Request,#0038FF'>Enhancement/Feature Request</option>
+										<option value='Research/Investigation,#FF4646'>Research/Investigation</option>
 									</Form.Select>
 
 									<Form.Label>Subtasks</Form.Label>

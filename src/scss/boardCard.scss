@@ -1,6 +1,40 @@
+$primary: #2a3647;
+
 .board-card.card {
 	max-width: 252px;
 	border-radius: 24px;
 	box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
-    margin-bottom: 8px;
+	margin-bottom: 8px;
+
+	.card-body {
+		.category-header p {
+			display: inline-block;
+			color: #fff;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 400;
+			background-color: aqua;
+			padding: 4px 16px;
+			border-radius: 8px;
+		}
+
+		.card-title.h5 {
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			color: $primary;
+		}
+
+		p.card-text {
+			font-size: 16px;
+			font-weight: 400;
+			color: #a8a8a8;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			text-overflow: ellipsis;
+			
+		}
+	}
 }
