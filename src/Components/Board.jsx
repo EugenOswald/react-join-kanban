@@ -17,32 +17,33 @@ const Board = ({ userData }) => {
 	const [modalShow, setModalShow] = React.useState(false);
 	const [loading, setLoading] = useState(true);
 	const enabled = useStrictDroppable(loading);
+	const [isInitialLoad, setIsInitialLoad] = useState(true);
+	const [modalTodos, setModalTodos] = useState([]);
 
 	useEffect(() => {
 		const todoCollectionRef = collection(db, 'todos');
-		/* 		const washingtonRef = doc(db, 'todos'); */
-
-		// Der onSnapshot-Listener wird aufgerufen, wenn sich etwas in der 'todos' Sammlung ändert
 		const unsubscribe = onSnapshot(todoCollectionRef, (snapshot) => {
-			const newTodos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-			setTodos(newTodos);
-			setLoading(false);
+			if (isInitialLoad) {
+				const newTodos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+				setTodos(newTodos);
+				setIsInitialLoad(false);
+			} else {
+				const modalTodos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+				setModalTodos(modalTodos);
+				console.log(isInitialLoad);
 
+				setLoading(false);
+			}
 		});
 
-		console.log('hi');
 		return () => unsubscribe();
 	}, []);
 
 	const onDragEnd = async (result) => {
 		const { destination, draggableId } = result;
-
-		// Prüfe, ob das Element überhaupt irgendwo abgelegt wurde
 		if (!destination) {
 			return;
 		}
-
-		// Aktualisiere den lokalen Zustand sofort
 		const updatedTodos = todos.map((todo) => {
 			if (todo.id === draggableId) {
 				return { ...todo, status: destination.droppableId };
@@ -50,7 +51,6 @@ const Board = ({ userData }) => {
 			return todo;
 		});
 		setTodos(updatedTodos);
-
 		try {
 			const docRef = doc(db, 'todos', draggableId);
 			await updateDoc(docRef, {
@@ -58,10 +58,8 @@ const Board = ({ userData }) => {
 			});
 		} catch (error) {
 			console.error('Fehler beim Abrufen des Dokuments: ', error);
-			setTodos(todos);
 		}
-		setLoading(false);
-	}
+	};
 
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
@@ -104,7 +102,7 @@ const Board = ({ userData }) => {
 																			{...provided.draggableProps}
 																			{...provided.dragHandleProps}
 																		>
-																			<BoardCard id={todo.id} userData={userData} />
+																			<BoardCard todo={todo} userData={userData} />
 																		</div>
 																	)}
 																</Draggable>
