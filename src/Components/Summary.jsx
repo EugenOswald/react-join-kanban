@@ -11,6 +11,10 @@ import '../scss/summary.scss';
 const Summary = React.memo(({ userData }) => {
 	const [todoList, setTodoList] = useState([]);
 	const [highPrioCount, setHighPrioCount] = useState(0);
+	const [todoTodosCount, setTodoTodosCount] = useState(0);
+	const [progressTodosCount, setProgressTodosCount] = useState(0);
+	const [feedbackTodos, setFeedbackTodos] = useState(0);
+	const [doneTodos, setDoneTodos] = useState(0);
 	const [nextUrgentDate, setNextUrgentDate] = useState(null);
 
 	const todoCollectionRef = collection(db, 'todos');
@@ -21,11 +25,18 @@ const Summary = React.memo(({ userData }) => {
 				const data = await getDocs(todoCollectionRef);
 				const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 				setTodoList(filteredData);
+				const todoTodos = filteredData.filter((todo) => todo.status === 'todo');
+				const progressTodos = filteredData.filter((todo) => todo.status === 'progress');
+				const feedbackTodos = filteredData.filter((todo) => todo.status === 'feedback');
+				const doneTodos = filteredData.filter((todo) => todo.status === 'done');
 				const urgentTodos = filteredData.filter((todo) => todo.prio === 'Urgent');
-				setHighPrioCount(urgentTodos.length);
+                setTodoTodosCount(todoTodos.length);
+                setProgressTodosCount(progressTodos.length);
+                setFeedbackTodos(feedbackTodos.length);
+                setDoneTodos(doneTodos.length);
 
 				const nextUrgentDate = urgentTodos.reduce((earliest, todo) => {
-					const [year, month, day ] = todo.dueDate.split('-').map(Number);
+					const [year, month, day] = todo.dueDate.split('-').map(Number);
 					const todoDate = new Date(year, month - 1, day);
 					return !earliest || todoDate < earliest ? todoDate : earliest;
 				}, null);
@@ -58,7 +69,7 @@ const Summary = React.memo(({ userData }) => {
 										<img src={penIconGray} alt='' />
 									</div>
 									<div className='d-flex flex-column align-items-center'>
-										<p className='bold-number text-center'>{todoList.length}</p>
+										<p className='bold-number text-center'>{todoTodosCount}</p>
 										<p className='text-center'>To-do</p>
 									</div>
 								</Card>
@@ -67,7 +78,7 @@ const Summary = React.memo(({ userData }) => {
 										<img src={checkIconGray} alt='' />
 									</div>
 									<div>
-										<p className='bold-number text-center'>{todoList.length}</p>
+										<p className='bold-number text-center'>{doneTodos}</p>
 										<p>Done</p>
 									</div>
 								</Card>
@@ -106,7 +117,7 @@ const Summary = React.memo(({ userData }) => {
 								</Card>
 								<Card className='card-layout card-progress'>
 									<div className='d-flex flex-column align-items-center'>
-										<p className='bold-number text-center'>{todoList.length}</p>
+										<p className='bold-number text-center'>{progressTodosCount}</p>
 										<p className='text-center'>
 											Tasks In<br></br> Progress
 										</p>
@@ -114,7 +125,7 @@ const Summary = React.memo(({ userData }) => {
 								</Card>
 								<Card className='card-layout card-progress'>
 									<div className='d-flex flex-column align-items-center'>
-										<p className='bold-number text-center'>{todoList.length}</p>
+										<p className='bold-number text-center'>{feedbackTodos}</p>
 										<p className='text-center'>
 											Awaiting<br></br> Feedback
 										</p>
