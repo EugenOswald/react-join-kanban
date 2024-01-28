@@ -34,7 +34,22 @@ $primary: #2a3647;
 			-webkit-box-orient: vertical;
 			-webkit-line-clamp: 2;
 			text-overflow: ellipsis;
-			
+		}
+
+		.progessbar-container {
+			.progress {
+				max-height: 8px;
+
+				.progress-bar {
+					background-color: #4589ff;
+				}
+			}
+			p {
+				font-size: 12px;
+			}
+		}
+
+		.assignee {
 		}
 	}
 }

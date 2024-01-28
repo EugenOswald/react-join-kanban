@@ -30,8 +30,6 @@ const Board = React.memo(({ userData }) => {
 			} else {
 				const modalTodos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 				setModalTodos(modalTodos);
-				console.log(isInitialLoad);
-
 				setLoading(false);
 			}
 		});
